@@ -1,6 +1,7 @@
 package davijoe.fsspindel.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,16 +21,16 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "book_title")
     private String title;
-    @Column(name = "book_author")
     private String author;
+    private String isbn;
+    @Lob
+    private String description;
+    private String genre;
+    private String publisher;
+    @Column(columnDefinition = "DATE")  // https://stackoverflow.com/questions/23858335/hibernate-4-3-5-date-and-time-issue
+    private LocalDateTime publishDate;
+    private String language;
+    private int pages;
 
-    @CreationTimestamp
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private LocalDateTime created;
-
-    @UpdateTimestamp
-    @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private LocalDateTime updated;
 }
